@@ -1,0 +1,22 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.upcoming {
+  background: color-mix(in srgb, var(--color-status-upcoming) 15%, white);
+  color: var(--color-status-upcoming);
+}
+.ongoing {
+  background: color-mix(in srgb, var(--color-status-ongoing) 15%, white);
+  color: var(--color-status-ongoing);
+}
+.ended {
+  background: color-mix(in srgb, var(--color-status-ended) 20%, white);
+  color: var(--color-status-ended);
+}

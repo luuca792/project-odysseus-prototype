@@ -1,0 +1,192 @@
+.assumptionNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-warning);
+  background: var(--color-warning-bg);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  max-width: 720px;
+  margin-bottom: var(--space-5);
+}
+
+.tabRow {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-5);
+}
+
+.tabButton {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 4px;
+  margin-right: var(--space-5);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.tabButton:hover {
+  color: var(--color-text);
+}
+
+.tabButtonActive {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.line {
+  margin: 0 0 4px 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.userTableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.userTable th,
+.userTable td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.userTable th:last-child,
+.userTable td:last-child {
+  width: 220px;
+}
+
+.userTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.pageInfo {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.userName {
+  margin: 0;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.permissionTableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.permissionTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.permissionTable th,
+.permissionTable td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.permissionTable th:not(:first-child),
+.permissionTable td:not(:first-child) {
+  white-space: nowrap;
+}
+
+.permissionTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.permissionCheckbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.modalHint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.tempPassword {
+  font-family: monospace;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin: 0 0 var(--space-3) 0;
+}

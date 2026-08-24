@@ -1,0 +1,30 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.volunteer {
+  background: color-mix(in srgb, var(--color-type-volunteer) 15%, white);
+  color: var(--color-type-volunteer);
+}
+.meeting {
+  background: color-mix(in srgb, var(--color-type-meeting) 20%, white);
+  color: var(--color-type-meeting);
+}
+.organizational {
+  background: color-mix(in srgb, var(--color-type-organizational) 15%, white);
+  color: var(--color-type-organizational);
+}
+.sports {
+  background: color-mix(in srgb, var(--color-type-sports) 15%, white);
+  color: var(--color-type-sports);
+}
+.labor {
+  background: color-mix(in srgb, var(--color-type-labor) 15%, white);
+  color: var(--color-type-labor);
+}

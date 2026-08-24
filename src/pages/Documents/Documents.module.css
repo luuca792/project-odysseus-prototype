@@ -1,0 +1,71 @@
+.pageDescription {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-5);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.exportRow {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.exportNote {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+}
+
+.previewCard {
+  position: sticky;
+  top: calc(var(--shell-header-height) + var(--space-4));
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.previewPage {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-5);
+  min-height: 320px;
+}
+
+.previewOrg {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: var(--color-text-muted);
+}
+
+.previewTitle {
+  text-align: center;
+  margin: var(--space-4) 0;
+}
+
+.previewBody {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: pre-wrap;
+}

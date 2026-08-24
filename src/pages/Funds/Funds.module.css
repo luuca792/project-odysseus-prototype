@@ -1,0 +1,33 @@
+.pageDescription {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-5);
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.summaryCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summaryLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.summaryValue {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-3);
+}
