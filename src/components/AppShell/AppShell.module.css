@@ -55,6 +55,10 @@
   text-overflow: ellipsis;
 }
 
+.brandTitleShort {
+  display: none;
+}
+
 .brandSub {
   font-size: var(--font-size-xs);
   color: var(--color-text-subtle);
@@ -254,5 +258,13 @@
 @media (max-width: 640px) {
   .brandSub {
     display: none;
+  }
+
+  .brandTitleFull {
+    display: none;
+  }
+
+  .brandTitleShort {
+    display: inline;
   }
 }

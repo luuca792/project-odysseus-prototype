@@ -8,6 +8,7 @@ export const subAssociations: SubAssociation[] = [
   {
     id: 'sa-tv',
     name: 'Chi hội sinh viên Trà Vinh',
+    shortName: 'CHSV Trà Vinh',
     slogan: 'Đoàn kết - Năng động - Nhiệt huyết',
     introduction:
       'Chi hội trực thuộc Liên chi hội sinh viên Vĩnh Long, thuộc Hội Sinh Viên Đại học Cần Thơ. Liên chi hội sinh viên Vĩnh Long quản lý sinh viên đến từ tỉnh Trà Vinh, đang học tập tại Đại học Cần Thơ, và được chia thành nhiều chi hội theo địa bàn. Chi hội sinh viên Trà Vinh quản lý sinh viên đến từ phường Trà Vinh (cùng tên với tỉnh Trà Vinh) và một số phường nhỏ khác.',

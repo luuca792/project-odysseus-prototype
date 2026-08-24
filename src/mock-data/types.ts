@@ -42,6 +42,7 @@ export type Permission =
 export interface SubAssociation {
   id: string;
   name: string;
+  shortName: string;
   slogan: string;
   introduction: string;
   contactEmail: string;

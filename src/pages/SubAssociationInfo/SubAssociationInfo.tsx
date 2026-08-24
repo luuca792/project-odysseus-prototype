@@ -70,18 +70,29 @@ export function SubAssociationInfo() {
         <p className={styles.contactLine}>
           <Mail size={16} /> {sa.contactEmail}
         </p>
-        <p className={styles.contactLine}>
-          <Link2 size={16} /> Facebook:{' '}
-          <a href={sa.facebookUrl} target="_blank" rel="noreferrer">
-            {sa.facebookUrl}
+        <div className={styles.contactLine}>
+          <span className={styles.contactLabel}>Mạng xã hội</span>
+          <a
+            href={sa.facebookUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.contactIconLink}
+            title="Facebook"
+            aria-label="Facebook"
+          >
+            <Link2 size={16} />
           </a>
-        </p>
-        <p className={styles.contactLine}>
-          <MessageCircle size={16} /> Zalo:{' '}
-          <a href={sa.zaloUrl} target="_blank" rel="noreferrer">
-            {sa.zaloUrl}
+          <a
+            href={sa.zaloUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.contactIconLink}
+            title="Zalo"
+            aria-label="Zalo"
+          >
+            <MessageCircle size={16} />
           </a>
-        </p>
+        </div>
       </Card>
     </div>
   );

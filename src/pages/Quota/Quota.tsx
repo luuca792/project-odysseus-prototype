@@ -57,10 +57,7 @@ export function Quota() {
       <div className={styles.headerRow}>
         <div>
           <h1>Chỉ tiêu hoạt động</h1>
-          <p className={styles.pageDescription}>
-            Mỗi chỉ tiêu (theo nhiệm kỳ) có thể gán vào nhiều hoạt động. Chưa có số liệu chỉ tiêu chính thức từ Hội Sinh
-            Viên trường — tên và số lượng chỉ tiêu bên dưới là ví dụ minh họa, cần xác nhận với BCH.
-          </p>
+          <p className={styles.pageDescription}>Mỗi chỉ tiêu (theo nhiệm kỳ) có thể gán vào nhiều hoạt động.</p>
         </div>
         {canCreate && (
           <Button onClick={() => setCreateOpen(true)}>

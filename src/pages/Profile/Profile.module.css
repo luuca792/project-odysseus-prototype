@@ -7,6 +7,7 @@
   align-items: center;
   gap: var(--space-4);
   margin-bottom: var(--space-3);
+  flex-wrap: wrap;
 }
 
 .avatarLg {
@@ -25,10 +26,16 @@
 
 .profileHeaderInfo {
   flex: 1;
-  min-width: 0;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+@media (max-width: 640px) {
+  .profileHeader > button {
+    width: 100%;
+  }
 }
 
 .name {

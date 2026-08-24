@@ -55,13 +55,7 @@ export function Feedback() {
   return (
     <div>
       <h1>Góp ý & Phản hồi</h1>
-      <p className={styles.pageDescription}>
-        Gửi ý kiến đóng góp hoặc phản hồi cho Ban Chấp Hành.{' '}
-        <span className={styles.assumptionNote}>
-          ⚠ Quy trình xử lý góp ý (ai duyệt, phản hồi thế nào) chưa được nêu rõ trong yêu cầu gốc — bản dựng thử tạm dùng trạng thái
-          "Mới" / "Đã xem xét" do BCH cập nhật thủ công.
-        </span>
-      </p>
+      <p className={styles.pageDescription}>Gửi ý kiến đóng góp hoặc phản hồi cho Ban Chấp Hành.</p>
 
       <Card className={styles.formCard}>
         <h2 className={styles.formTitle}>Tạo góp ý mới</h2>

@@ -54,6 +54,7 @@ export function Admin() {
   const [activeTab, setActiveTab] = useState<TabKey>('sub-associations');
   const [createOpen, setCreateOpen] = useState(false);
   const [name, setName] = useState('');
+  const [shortName, setShortName] = useState('');
   const [slogan, setSlogan] = useState('');
   const [introduction, setIntroduction] = useState('');
   const [userPage, setUserPage] = useState(0);
@@ -72,6 +73,7 @@ export function Admin() {
     addSubAssociation({
       id: `sa-${Date.now()}`,
       name: name.trim(),
+      shortName: shortName.trim() || name.trim(),
       slogan: slogan.trim(),
       introduction: introduction.trim(),
       contactEmail: '',
@@ -82,6 +84,7 @@ export function Admin() {
     showToast('Đã tạo chi hội mới.');
     setCreateOpen(false);
     setName('');
+    setShortName('');
     setSlogan('');
     setIntroduction('');
   }
@@ -125,12 +128,6 @@ export function Admin() {
   return (
     <div>
       <h1>Quản trị hệ thống</h1>
-      <p className={styles.assumptionNote}>
-        ⚠ Yêu cầu gốc không mô tả chi tiết chức năng dành riêng cho vai trò Quản trị hệ thống. Theo bản cập nhật đặc tả
-        (Cách vận hành), quản trị có thể tạo chi hội, gán vai trò cho người dùng đã có tài khoản (không hỗ trợ tạo tài
-        khoản mới trong bản dựng thử), và điều chỉnh quyền của từng vai trò bất cứ lúc nào. Danh sách quyền bên dưới là
-        khái niệm hệ thống cố định — quản trị chỉ bật/tắt, không tạo quyền mới.
-      </p>
 
       <div className={styles.tabRow}>
         {TABS.map((tab) => (
@@ -197,7 +194,7 @@ export function Admin() {
               <tbody>
                 {pagedUsers.map((u) => (
                   <tr key={u.id}>
-                    <td>
+                    <td data-label="Họ và tên">
                       <span className={styles.userInfo}>
                         <span className={styles.avatar}>{u.avatarInitials}</span>
                         <span>
@@ -206,13 +203,13 @@ export function Admin() {
                         </span>
                       </span>
                     </td>
-                    <td>
+                    <td data-label="Chi hội">
                       {u.subAssociationIds
                         .map((id) => subAssociations.find((sa) => sa.id === id)?.name)
                         .filter(Boolean)
                         .join(', ') || '—'}
                     </td>
-                    <td>
+                    <td data-label="Vai trò">
                       <SelectField
                         label=""
                         id={`role-select-${u.id}`}
@@ -225,7 +222,7 @@ export function Admin() {
                         }}
                       />
                     </td>
-                    <td>
+                    <td data-label="Mật khẩu">
                       <Button variant="ghost" size="sm" onClick={() => handleResetPassword(u.id, u.name)}>
                         <KeyRound size={14} /> Cấp lại mật khẩu
                       </Button>
@@ -312,6 +309,12 @@ export function Admin() {
         >
           <form onSubmit={handleCreateSubAssociation}>
             <TextField label="Tên chi hội" value={name} onChange={(e) => setName(e.target.value)} required />
+            <TextField
+              label="Tên viết tắt (hiển thị trên di động)"
+              value={shortName}
+              onChange={(e) => setShortName(e.target.value)}
+              placeholder={name || 'VD: CHSV Trà Vinh'}
+            />
             <TextField label="Slogan" value={slogan} onChange={(e) => setSlogan(e.target.value)} />
             <TextAreaField label="Giới thiệu" value={introduction} onChange={(e) => setIntroduction(e.target.value)} />
           </form>
@@ -371,10 +374,6 @@ export function Admin() {
             ngay sau khi đăng nhập.
           </p>
           <p className={styles.tempPassword}>{tempPassword}</p>
-          <p className={styles.modalHint}>
-            ⚠ Bản dựng thử: mật khẩu này chỉ mang tính minh họa giao diện, không được lưu trữ hay áp dụng thật — đăng
-            nhập vẫn dùng cách chọn tài khoản demo như hiện tại.
-          </p>
         </Modal>
       )}
     </div>

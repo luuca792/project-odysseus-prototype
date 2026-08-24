@@ -74,7 +74,7 @@ export function DataTable<T>({
           {sortedRows.map((row) => (
             <tr key={rowKey(row)} className={onRowClick ? styles.clickableRow : ''} onClick={() => onRowClick?.(row)}>
               {columns.map((col) => (
-                <td key={col.key} className={styles.td} style={{ textAlign: col.align ?? 'left' }}>
+                <td key={col.key} className={styles.td} style={{ textAlign: col.align ?? 'left' }} data-label={col.header}>
                   {col.render(row)}
                 </td>
               ))}

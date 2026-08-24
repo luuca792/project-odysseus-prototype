@@ -49,10 +49,6 @@ export function ForumCreate() {
   return (
     <div>
       <h1>Tạo bài viết mới</h1>
-      <p style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--space-4)', maxWidth: 560 }}>
-        ⚠ Bài viết sẽ được đăng ngay (kiểm duyệt sau) theo giả định của bản dựng thử — cần xác nhận với BCH liệu có cần duyệt
-        trước khi đăng hay không.
-      </p>
       <form onSubmit={handleSubmit} className={styles.formGrid}>
         <TextField label="Tiêu đề" value={title} onChange={(e) => setTitle(e.target.value)} required />
         <SelectField label="Chủ đề" options={TOPIC_OPTIONS} value={topic} onChange={(e) => setTopic(e.target.value)} />

@@ -87,7 +87,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </button>
           <img src={logoUrl} alt="Logo Đại học Cần Thơ" className={styles.logo} />
           <div className={styles.brandText}>
-            <span className={styles.brandTitle}>{subAssociation?.name ?? 'Hệ thống Quản lý Công tác Hội'}</span>
+            <span className={styles.brandTitle}>
+              <span className={styles.brandTitleFull}>{subAssociation?.name ?? 'Hệ thống Quản lý Công tác Hội'}</span>
+              <span className={styles.brandTitleShort}>{subAssociation?.shortName ?? 'Hệ thống Quản lý Công tác Hội'}</span>
+            </span>
             <span className={styles.brandSub}>{subAssociation?.slogan ?? 'Đại học Cần Thơ'}</span>
           </div>
         </div>
