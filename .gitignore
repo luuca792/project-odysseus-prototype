@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Software feedback tickets: real user-generated data written by the dev-server
+# API (see vite-plugins/softwareFeedbackApi.ts), not curated content like
+# business_data/ - ephemeral prototype-review noise, kept out of git.
+software_feedback/*.json

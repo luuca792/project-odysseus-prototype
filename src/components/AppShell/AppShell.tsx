@@ -5,12 +5,15 @@ import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppDataContext';
 import { useNotifications } from '../../context/NotificationContext';
 import { getUserRoleLabel } from '../../mock-data/roleLabels';
-import { getNavSections, isNavGroup, type NavEntry } from './navConfig';
+import { getNavSections, isNavGroup, isNavDivider, type NavItem, type NavGroup } from './navConfig';
 import { NotificationDot } from '../NotificationDot/NotificationDot';
 import logoUrl from '../../assets/images/CTU_logo.png';
 import styles from './AppShell.module.css';
 
-function NavEntryView({ entry, depth, onNavigate }: { entry: NavEntry; depth: number; onNavigate: () => void }) {
+// Dividers are only ever used top-level (see the navSections.map below) and never
+// appear inside a NavGroup's items, so NavEntryView only needs to handle the two
+// renderable entry kinds.
+function NavEntryView({ entry, depth, onNavigate }: { entry: NavItem | NavGroup; depth: number; onNavigate: () => void }) {
   const { hasUnreadActivities, hasUnreadForumPosts } = useNotifications();
 
   if (isNavGroup(entry)) {
@@ -121,12 +124,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className={styles.body}>
         <nav className={`${styles.sidebar} ${mobileNavOpen ? styles.sidebarOpen : ''}`}>
-          {navSections.map((entry) => (
-            <div key={isNavGroup(entry) ? entry.label : entry.to}>
-              {isNavGroup(entry) && <div className={styles.navDivider} />}
-              <NavEntryView entry={entry} depth={0} onNavigate={closeMobileNav} />
-            </div>
-          ))}
+          {navSections.map((entry, index) => {
+            if (isNavDivider(entry)) {
+              return <div key={`divider-${index}`} className={styles.navDivider} />;
+            }
+            return (
+              <div key={isNavGroup(entry) ? entry.label : entry.to}>
+                {isNavGroup(entry) && <div className={styles.navDivider} />}
+                <NavEntryView entry={entry} depth={0} onNavigate={closeMobileNav} />
+              </div>
+            );
+          })}
         </nav>
 
         <main className={styles.content}>{children}</main>

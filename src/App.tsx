@@ -25,6 +25,7 @@ import { Quota } from './pages/Quota/Quota';
 import { Funds } from './pages/Funds/Funds';
 import { Documents } from './pages/Documents/Documents';
 import { Admin } from './pages/Admin/Admin';
+import { SoftwareFeedback } from './pages/SoftwareFeedback/SoftwareFeedback';
 import { NotFound } from './pages/NotFound/NotFound';
 
 function AppRoutes() {
@@ -193,6 +194,15 @@ function AppRoutes() {
           element={
             <RoleGuard allow={['admin']}>
               <Admin />
+            </RoleGuard>
+          }
+        />
+
+        <Route
+          path="/software-feedback"
+          element={
+            <RoleGuard allow={['member', 'bch', 'admin']}>
+              <SoftwareFeedback />
             </RoleGuard>
           }
         />
