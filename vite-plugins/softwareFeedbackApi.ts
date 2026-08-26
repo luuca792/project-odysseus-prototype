@@ -55,7 +55,7 @@ async function createTicket(req: IncomingMessage, res: ServerResponse) {
   }
   await ensureDataDir();
   const ticket = {
-    id: `sf-${Date.now()}`,
+    id: `${Date.now()}`,
     category,
     type,
     content,

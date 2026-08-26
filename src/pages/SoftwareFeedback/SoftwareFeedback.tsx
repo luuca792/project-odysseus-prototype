@@ -117,15 +117,15 @@ export function SoftwareFeedback() {
             const isOwner = t.authorId === currentUser.id;
             return (
               <Card key={t.id} className={styles.ticketCard}>
+                <div className={styles.ticketIdRow}>
+                  <span className={styles.ticketId}>{t.id}</span>
+                  <span className={styles.ticketTag}>{t.category}</span>
+                  <span className={styles.ticketTag}>{t.type}</span>
+                </div>
                 <div className={styles.ticketHeader}>
-                  <div>
-                    <span className={styles.ticketTag}>{t.category}</span>
-                    <span className={styles.ticketTag}>{t.type}</span>
-                    <span className={styles.ticketAuthor}>
-                      {' '}
-                      · {t.authorName} · {new Date(t.createdAt).toLocaleDateString('vi-VN')}
-                    </span>
-                  </div>
+                  <span className={styles.ticketAuthor}>
+                    {t.authorName} · {new Date(t.createdAt).toLocaleDateString('vi-VN')}
+                  </span>
                   {status && <Badge tone={status.tone}>{status.label}</Badge>}
                 </div>
                 <p className={styles.ticketContent}>{t.content}</p>
@@ -135,7 +135,7 @@ export function SoftwareFeedback() {
                     <p className={styles.responseText}>{t.response}</p>
                   </div>
                 )}
-                {isOwner && (
+                {isOwner && !t.status && (
                   <div className={styles.deleteRow}>
                     {confirmingDeleteId === t.id ? (
                       <>
