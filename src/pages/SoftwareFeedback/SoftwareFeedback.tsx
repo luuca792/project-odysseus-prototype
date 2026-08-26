@@ -6,10 +6,9 @@ import {
   SOFTWARE_FEEDBACK_CATEGORIES,
   SOFTWARE_FEEDBACK_TYPES,
   type SoftwareFeedbackCategory,
-  type SoftwareFeedbackTicket,
   type SoftwareFeedbackType,
 } from '../../mock-data/softwareFeedback';
-import { KNOWN_SOFTWARE_FEEDBACK_STATUSES, getStatusDisplay } from '../../mock-data/softwareFeedbackStatusLabels';
+import { getStatusDisplay } from '../../mock-data/softwareFeedbackStatusLabels';
 import { Card } from '../../components/Card/Card';
 import { Button } from '../../components/Button';
 import { Badge } from '../../components/Badge/Badge';
@@ -21,15 +20,6 @@ import styles from './SoftwareFeedback.module.css';
 const CATEGORY_OPTIONS = SOFTWARE_FEEDBACK_CATEGORIES.map((c) => ({ value: c, label: c }));
 const TYPE_OPTIONS = SOFTWARE_FEEDBACK_TYPES.map((t) => ({ value: t, label: t }));
 
-// Untriaged tickets (status not yet set by the developer) are grouped under
-// the "Đang mở" tab, since that's their effective state in the lifecycle.
-const TABS = KNOWN_SOFTWARE_FEEDBACK_STATUSES;
-type TabValue = (typeof TABS)[number]['value'];
-
-function matchesTab(ticket: SoftwareFeedbackTicket, tab: TabValue): boolean {
-  return (ticket.status || 'open') === tab;
-}
-
 export function SoftwareFeedback() {
   const { currentUser } = useAuth();
   const { tickets, loading, error, refresh, addTicket, deleteTicket } = useSoftwareFeedback();
@@ -39,7 +29,6 @@ export function SoftwareFeedback() {
   const [type, setType] = useState<SoftwareFeedbackType>(SOFTWARE_FEEDBACK_TYPES[0]);
   const [content, setContent] = useState('');
   const [confirmingDeleteId, setConfirmingDeleteId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<TabValue>(TABS[0].value);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   if (!currentUser) return null;
@@ -68,8 +57,6 @@ export function SoftwareFeedback() {
   }
 
   const sorted = [...tickets].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  const visible = sorted.filter((t) => matchesTab(t, activeTab));
-  const countFor = (tab: TabValue) => sorted.filter((t) => matchesTab(t, tab)).length;
 
   return (
     <div>
@@ -108,22 +95,6 @@ export function SoftwareFeedback() {
 
       <h2 className={styles.sectionTitle}>Danh sách đóng góp</h2>
 
-      <div className={styles.tabs} role="tablist">
-        {TABS.map((tab) => (
-          <button
-            key={tab.value}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === tab.value}
-            className={`${styles.tab} ${activeTab === tab.value ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab(tab.value)}
-          >
-            {tab.label}
-            <span className={styles.tabCount}>{countFor(tab.value)}</span>
-          </button>
-        ))}
-      </div>
-
       {loading && <p className={styles.pageDescription}>Đang tải danh sách đóng góp...</p>}
 
       {!loading && error && (
@@ -138,13 +109,11 @@ export function SoftwareFeedback() {
         />
       )}
 
-      {!loading && !error && visible.length === 0 && (
-        <EmptyState title="Không có đóng góp nào trong mục này" />
-      )}
+      {!loading && !error && sorted.length === 0 && <EmptyState title="Chưa có đóng góp nào" />}
 
-      {!loading && !error && visible.length > 0 && (
+      {!loading && !error && sorted.length > 0 && (
         <div className={styles.list}>
-          {visible.map((t) => {
+          {sorted.map((t) => {
             const status = getStatusDisplay(t.status);
             const isOwner = t.authorId === currentUser.id;
             const isExpanded = expandedId === t.id;
@@ -157,18 +126,16 @@ export function SoftwareFeedback() {
                   onClick={() => setExpandedId(isExpanded ? null : t.id)}
                 >
                   <ChevronDown size={16} className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ''}`} />
-                  <span className={styles.ticketTag}>{t.type}</span>
+                  <span className={styles.categoryTag}>{t.category}</span>
+                  <span className={styles.typeTag}>{t.type}</span>
                   <span className={styles.ticketTitle}>{t.content}</span>
-                  {status && (
-                    <Badge tone={status.tone}>{status.label}</Badge>
-                  )}
+                  {status && <Badge tone={status.tone}>{status.label}</Badge>}
                 </button>
 
                 {isExpanded && (
                   <div className={styles.ticketDetails}>
                     <div className={styles.metaRow}>
                       <span className={styles.ticketId}>{t.id}</span>
-                      <span className={styles.ticketTag}>{t.category}</span>
                       <span className={styles.ticketAuthor}>
                         {t.authorName} · {new Date(t.createdAt).toLocaleDateString('vi-VN')}
                       </span>
