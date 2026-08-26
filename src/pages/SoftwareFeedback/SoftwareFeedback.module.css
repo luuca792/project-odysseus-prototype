@@ -1,17 +1,30 @@
 .pageDescription {
   color: var(--color-text-muted);
-  margin-bottom: var(--space-5);
   max-width: 720px;
 }
 
-.formCard {
-  max-width: 560px;
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
   margin-bottom: var(--space-6);
 }
 
-.formTitle {
-  font-size: var(--font-size-base);
-  margin-bottom: var(--space-3);
+.pageHeader > :global(button) {
+  flex: none;
+}
+
+@media (max-width: 640px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pageHeader > :global(button) {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .sectionTitle {
@@ -30,28 +43,67 @@
   overflow: hidden;
 }
 
+.idTabRow {
+  display: flex;
+  padding: var(--space-2) var(--space-4) 0;
+}
+
+.ticketId {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--color-text-subtle);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  padding: 2px 10px;
+}
+
+.ticketId::before {
+  content: '#';
+}
+
 .ticketRow {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
+  flex-direction: column;
+  gap: 4px;
   width: 100%;
   font: inherit;
   text-align: left;
   background: none;
   border: none;
   cursor: pointer;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-2) var(--space-4) var(--space-3);
 }
 
 .ticketRow:hover {
   background: var(--color-bg);
 }
 
+.ticketRowLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ticketRowLine:has(.ticketTitle) {
+  align-items: flex-start;
+}
+
+.tagGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
 .chevron {
   flex: none;
   color: var(--color-text-subtle);
   transition: transform 0.15s ease;
+  margin-top: 2px;
 }
 
 .chevronOpen {
@@ -59,12 +111,21 @@
 }
 
 .ticketTitle {
-  flex: 1 1 160px;
-  min-width: 120px;
+  flex: 1 1 auto;
+  min-width: 0;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 13px;
+  line-height: 1.4;
   color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+.ticketTitleExpanded {
+  -webkit-line-clamp: unset;
+  overflow: visible;
 }
 
 .ticketDetails {
@@ -73,62 +134,42 @@
   padding-top: var(--space-3);
 }
 
-.metaRow {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-bottom: var(--space-2);
-}
-
-.ticketId {
-  display: inline-block;
-  font-family: monospace;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  padding: 2px 10px;
-}
-
-.ticketId::before {
-  content: '#';
-}
-
 .typeTag {
   flex: none;
   display: inline-block;
   font-weight: 600;
-  font-size: var(--font-size-sm);
+  font-size: 11px;
   color: var(--color-primary-dark);
   background: var(--color-primary-50);
   border: 1px solid var(--color-primary-100);
   border-radius: 999px;
-  padding: 2px 10px;
+  padding: 1px 8px;
 }
 
 .categoryTag {
   flex: none;
   display: inline-block;
   font-weight: 600;
-  font-size: var(--font-size-sm);
+  font-size: 11px;
   color: #5a3f96;
   background: #f1ecfa;
   border: 1px solid #ddd0f2;
   border-radius: 999px;
-  padding: 2px 10px;
+  padding: 1px 8px;
 }
 
 .ticketAuthor {
-  font-size: var(--font-size-sm);
+  font-size: 12px;
   color: var(--color-text-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.ticketContent {
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-3);
-  white-space: pre-wrap;
+.ticketDate {
+  flex: none;
+  font-size: 12px;
+  color: var(--color-text-subtle);
 }
 
 .responseBlock {
@@ -142,12 +183,14 @@
 .responseLabel {
   display: block;
   font-weight: 600;
-  font-size: var(--font-size-sm);
+  font-size: 12px;
   margin-bottom: var(--space-1);
 }
 
 .responseText {
   margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
   white-space: pre-wrap;
 }
 

@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { ChevronDown, Trash2 } from 'lucide-react';
+import { ChevronDown, Plus, Trash2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSoftwareFeedback } from '../../context/useSoftwareFeedback';
 import {
@@ -12,6 +12,7 @@ import { getStatusDisplay } from '../../mock-data/softwareFeedbackStatusLabels';
 import { Card } from '../../components/Card/Card';
 import { Button } from '../../components/Button';
 import { Badge } from '../../components/Badge/Badge';
+import { Modal } from '../../components/Modal/Modal';
 import { TextAreaField, SelectField } from '../../components/FormField/FormField';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { useToast } from '../../components/Toast/ToastContext';
@@ -30,18 +31,30 @@ export function SoftwareFeedback() {
   const [content, setContent] = useState('');
   const [confirmingDeleteId, setConfirmingDeleteId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   if (!currentUser) return null;
+
+  function resetForm() {
+    setCategory(SOFTWARE_FEEDBACK_CATEGORIES[0]);
+    setType(SOFTWARE_FEEDBACK_TYPES[0]);
+    setContent('');
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!content.trim()) return;
+    setSubmitting(true);
     try {
       await addTicket({ category, type, content: content.trim() });
       showToast('Đã gửi đóng góp của bạn.');
-      setContent('');
+      resetForm();
+      setIsCreateOpen(false);
     } catch {
       showToast('Không thể gửi đóng góp. Vui lòng thử lại.');
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -60,38 +73,46 @@ export function SoftwareFeedback() {
 
   return (
     <div>
-      <h1>Đóng góp phần mềm</h1>
-      <p className={styles.pageDescription}>
-        Chia sẻ ý kiến, đề xuất hoặc phản ánh của bạn về prototype này để nhóm phát triển ghi nhận và xử lý.
-      </p>
+      <div className={styles.pageHeader}>
+        <div>
+          <h1>Đóng góp phần mềm</h1>
+          <p className={styles.pageDescription}>
+            Chia sẻ ý kiến, đề xuất hoặc phản ánh của bạn về prototype này để nhóm phát triển ghi nhận và xử lý.
+          </p>
+        </div>
+        <Button onClick={() => setIsCreateOpen(true)}>
+          <Plus size={16} /> Tạo đóng góp mới
+        </Button>
+      </div>
 
-      <Card className={styles.formCard}>
-        <h2 className={styles.formTitle}>Tạo đóng góp mới</h2>
-        <form onSubmit={handleSubmit}>
-          <SelectField
-            label="Nhóm"
-            options={CATEGORY_OPTIONS}
-            value={category}
-            onChange={(e) => setCategory(e.target.value as SoftwareFeedbackCategory)}
-          />
-          <SelectField
-            label="Loại"
-            options={TYPE_OPTIONS}
-            value={type}
-            onChange={(e) => setType(e.target.value as SoftwareFeedbackType)}
-          />
-          <TextAreaField
-            label="Nội dung"
-            placeholder="Nhập ý kiến, đề xuất hoặc phản ánh của bạn..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-          <Button type="submit" disabled={!content.trim()}>
-            Gửi đóng góp
-          </Button>
-        </form>
-      </Card>
+      {isCreateOpen && (
+        <Modal title="Tạo đóng góp mới" onClose={() => setIsCreateOpen(false)}>
+          <form onSubmit={handleSubmit}>
+            <SelectField
+              label="Nhóm"
+              options={CATEGORY_OPTIONS}
+              value={category}
+              onChange={(e) => setCategory(e.target.value as SoftwareFeedbackCategory)}
+            />
+            <SelectField
+              label="Loại"
+              options={TYPE_OPTIONS}
+              value={type}
+              onChange={(e) => setType(e.target.value as SoftwareFeedbackType)}
+            />
+            <TextAreaField
+              label="Nội dung"
+              placeholder="Nhập ý kiến, đề xuất hoặc phản ánh của bạn..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+            />
+            <Button type="submit" disabled={!content.trim() || submitting}>
+              Gửi đóng góp
+            </Button>
+          </form>
+        </Modal>
+      )}
 
       <h2 className={styles.sectionTitle}>Danh sách đóng góp</h2>
 
@@ -117,37 +138,49 @@ export function SoftwareFeedback() {
             const status = getStatusDisplay(t.status);
             const isOwner = t.authorId === currentUser.id;
             const isExpanded = expandedId === t.id;
+            const canDelete = isOwner && !t.status;
+            const hasDetails = Boolean(t.response) || canDelete;
             return (
               <Card key={t.id} className={styles.ticketCard} padded={false}>
+                <div className={styles.idTabRow}>
+                  <span className={styles.ticketId}>{t.id}</span>
+                </div>
                 <button
                   type="button"
                   className={styles.ticketRow}
                   aria-expanded={isExpanded}
                   onClick={() => setExpandedId(isExpanded ? null : t.id)}
                 >
-                  <ChevronDown size={16} className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ''}`} />
-                  <span className={styles.categoryTag}>{t.category}</span>
-                  <span className={styles.typeTag}>{t.type}</span>
-                  <span className={styles.ticketTitle}>{t.content}</span>
-                  {status && <Badge tone={status.tone}>{status.label}</Badge>}
+                  <div className={styles.ticketRowLine}>
+                    <span className={styles.tagGroup}>
+                      <span className={styles.categoryTag}>{t.category}</span>
+                      <span className={styles.typeTag}>{t.type}</span>
+                    </span>
+                    {status && <Badge tone={status.tone}>{status.label}</Badge>}
+                  </div>
+                  <div className={styles.ticketRowLine}>
+                    <span className={styles.ticketAuthor}>{t.authorName}</span>
+                    <span className={styles.ticketDate}>
+                      {new Date(t.createdAt).toLocaleDateString('vi-VN')}
+                    </span>
+                  </div>
+                  <div className={styles.ticketRowLine}>
+                    <span className={`${styles.ticketTitle} ${isExpanded ? styles.ticketTitleExpanded : ''}`}>
+                      {t.content}
+                    </span>
+                    <ChevronDown size={16} className={`${styles.chevron} ${isExpanded ? styles.chevronOpen : ''}`} />
+                  </div>
                 </button>
 
-                {isExpanded && (
+                {isExpanded && hasDetails && (
                   <div className={styles.ticketDetails}>
-                    <div className={styles.metaRow}>
-                      <span className={styles.ticketId}>{t.id}</span>
-                      <span className={styles.ticketAuthor}>
-                        {t.authorName} · {new Date(t.createdAt).toLocaleDateString('vi-VN')}
-                      </span>
-                    </div>
-                    <p className={styles.ticketContent}>{t.content}</p>
                     {t.response && (
                       <div className={styles.responseBlock}>
                         <span className={styles.responseLabel}>Phản hồi từ nhóm phát triển</span>
                         <p className={styles.responseText}>{t.response}</p>
                       </div>
                     )}
-                    {isOwner && !t.status && (
+                    {canDelete && (
                       <div className={styles.deleteRow}>
                         {confirmingDeleteId === t.id ? (
                           <>
