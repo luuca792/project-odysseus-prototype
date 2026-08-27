@@ -10,13 +10,13 @@
 
 .upcoming {
   background: color-mix(in srgb, var(--color-status-upcoming) var(--color-tag-mix-ratio), var(--color-tag-mix));
-  color: var(--color-status-upcoming);
+  color: var(--color-tag-text-upcoming);
 }
 .ongoing {
   background: color-mix(in srgb, var(--color-status-ongoing) var(--color-tag-mix-ratio), var(--color-tag-mix));
-  color: var(--color-status-ongoing);
+  color: var(--color-tag-text-ongoing);
 }
 .ended {
   background: color-mix(in srgb, var(--color-status-ended) calc(var(--color-tag-mix-ratio) + 5%), var(--color-tag-mix));
-  color: var(--color-status-ended);
+  color: var(--color-tag-text-ended);
 }

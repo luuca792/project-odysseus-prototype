@@ -10,21 +10,21 @@
 
 .volunteer {
   background: color-mix(in srgb, var(--color-type-volunteer) var(--color-tag-mix-ratio), var(--color-tag-mix));
-  color: var(--color-type-volunteer);
+  color: var(--color-tag-text-volunteer);
 }
 .meeting {
   background: color-mix(in srgb, var(--color-type-meeting) calc(var(--color-tag-mix-ratio) + 5%), var(--color-tag-mix));
-  color: var(--color-type-meeting);
+  color: var(--color-tag-text-meeting);
 }
 .organizational {
   background: color-mix(in srgb, var(--color-type-organizational) var(--color-tag-mix-ratio), var(--color-tag-mix));
-  color: var(--color-type-organizational);
+  color: var(--color-tag-text-organizational);
 }
 .sports {
   background: color-mix(in srgb, var(--color-type-sports) var(--color-tag-mix-ratio), var(--color-tag-mix));
-  color: var(--color-type-sports);
+  color: var(--color-tag-text-sports);
 }
 .labor {
   background: color-mix(in srgb, var(--color-type-labor) var(--color-tag-mix-ratio), var(--color-tag-mix));
-  color: var(--color-type-labor);
+  color: var(--color-tag-text-labor);
 }

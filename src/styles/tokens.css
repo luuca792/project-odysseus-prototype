@@ -94,6 +94,18 @@
   --color-tag-mix: white;
   --color-tag-mix-ratio: 15%;
 
+  /* Tag text colors — same hue as the background tint by default (light mode:
+     identical to the --color-type-x / --color-status-x tokens, kept separate so
+     dark mode can override with a lighter/more saturated shade for contrast). */
+  --color-tag-text-volunteer: var(--color-type-volunteer);
+  --color-tag-text-meeting: var(--color-type-meeting);
+  --color-tag-text-organizational: var(--color-type-organizational);
+  --color-tag-text-sports: var(--color-type-sports);
+  --color-tag-text-labor: var(--color-type-labor);
+  --color-tag-text-upcoming: var(--color-status-upcoming);
+  --color-tag-text-ongoing: var(--color-status-ongoing);
+  --color-tag-text-ended: var(--color-status-ended);
+
   color-scheme: light;
 }
 
@@ -150,6 +162,17 @@
 
   --color-tag-mix: #10151d;
   --color-tag-mix-ratio: 82%;
+
+  /* Lighter/more-saturated than the tag background's own accent color (which the
+     background is mixed from) so text doesn't blend into the tinted dark chip. */
+  --color-tag-text-volunteer: #7be8a8;
+  --color-tag-text-meeting: #c7ced8;
+  --color-tag-text-organizational: #9cc9f3;
+  --color-tag-text-sports: #f7c485;
+  --color-tag-text-labor: #cdbcf0;
+  --color-tag-text-upcoming: #9de4ff;
+  --color-tag-text-ongoing: #7be8a8;
+  --color-tag-text-ended: #c7ced8;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
