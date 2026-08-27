@@ -4,10 +4,12 @@ import { LogOut, Menu, X, ChevronDown, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppDataContext';
 import { useNotifications } from '../../context/NotificationContext';
+import { usePermission } from '../../context/usePermission';
 import { getUserRoleLabel } from '../../mock-data/roleLabels';
 import { getNavSections, isNavGroup, isNavDivider, type NavItem, type NavGroup } from './navConfig';
 import { NotificationDot } from '../NotificationDot/NotificationDot';
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
+import { ChatWidget } from '../ChatWidget/ChatWidget';
 import logoUrl from '../../assets/images/CTU_logo.png';
 import styles from './AppShell.module.css';
 
@@ -53,6 +55,7 @@ function NavEntryView({ entry, depth, onNavigate }: { entry: NavItem | NavGroup;
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { currentUser, activeSubAssociationId, logout } = useAuth();
   const { subAssociations, rolePermissions } = useAppData();
+  const hasChatWidget = usePermission('manage-activities');
   const navigate = useNavigate();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
@@ -127,7 +130,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <div className={styles.body}>
-        <nav className={`${styles.sidebar} ${mobileNavOpen ? styles.sidebarOpen : ''}`}>
+        <nav
+          className={`${styles.sidebar} ${mobileNavOpen ? styles.sidebarOpen : ''} ${hasChatWidget ? styles.sidebarReserveChat : ''}`}
+        >
           {navSections.map((entry, index) => {
             if (isNavDivider(entry)) {
               return <div key={`divider-${index}`} className={styles.navDivider} />;
@@ -141,8 +146,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <main className={styles.content}>{children}</main>
+        <main className={`${styles.content} ${hasChatWidget ? styles.contentReserveChat : ''}`}>{children}</main>
       </div>
+
+      <ChatWidget />
     </div>
   );
 }

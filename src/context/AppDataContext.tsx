@@ -6,9 +6,11 @@ import { posts as seedPosts } from '../mock-data/posts';
 import { goals as seedGoals } from '../mock-data/goals';
 import { subAssociations as seedSubAssociations } from '../mock-data/subAssociations';
 import { defaultRolePermissions } from '../mock-data/permissions';
+import { chatMessages as seedChatMessages } from '../mock-data/chatMessages';
 import type {
   Activity,
   Badge,
+  ChatMessage,
   Comment,
   Post,
   Goal,
@@ -26,12 +28,14 @@ interface AppDataContextValue {
   goals: Goal[];
   subAssociations: SubAssociation[];
   rolePermissions: Record<Role, Permission[]>;
+  chatMessages: ChatMessage[];
 
   addActivity: (activity: Activity) => void;
   updateActivity: (activity: Activity) => void;
   deleteActivity: (id: string) => void;
   addParticipant: (activityId: string, userId: string) => void;
   removeParticipant: (activityId: string, userId: string) => void;
+  sendChatMessage: (activityId: string, authorId: string, content: string) => void;
 
   addBadge: (badge: Badge) => void;
   deleteBadge: (badgeId: string) => void;
@@ -65,6 +69,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
   const [goals, setGoals] = useState<Goal[]>(seedGoals);
   const [subAssociations, setSubAssociations] = useState<SubAssociation[]>(seedSubAssociations);
   const [rolePermissions, setRolePermissions] = useState<Record<Role, Permission[]>>(defaultRolePermissions);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(seedChatMessages);
 
   const value = useMemo<AppDataContextValue>(
     () => ({
@@ -75,11 +80,26 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
       goals,
       subAssociations,
       rolePermissions,
+      chatMessages,
 
       addActivity: (activity) => setActivities((prev) => [activity, ...prev]),
       updateActivity: (activity) =>
         setActivities((prev) => prev.map((a) => (a.id === activity.id ? activity : a))),
-      deleteActivity: (id) => setActivities((prev) => prev.filter((a) => a.id !== id)),
+      deleteActivity: (id) => {
+        setActivities((prev) => prev.filter((a) => a.id !== id));
+        setChatMessages((prev) => prev.filter((m) => m.activityId !== id));
+      },
+      sendChatMessage: (activityId, authorId, content) =>
+        setChatMessages((prev) => [
+          ...prev,
+          {
+            id: `chat-${activityId}-${Date.now()}`,
+            activityId,
+            authorId,
+            content,
+            createdAt: new Date().toISOString(),
+          },
+        ]),
       addParticipant: (activityId, userId) =>
         setActivities((prev) =>
           prev.map((a) =>
@@ -161,7 +181,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
           return { ...prev, [role]: next };
         }),
     }),
-    [activities, badges, users, posts, goals, subAssociations, rolePermissions],
+    [activities, badges, users, posts, goals, subAssociations, rolePermissions, chatMessages],
   );
 
   return <AppDataContext.Provider value={value}>{children}</AppDataContext.Provider>;

@@ -231,6 +231,17 @@
   min-width: 0;
 }
 
+/* Reserves space for the collapsed chat widget's bar so it never overlaps the
+   last nav item or the last bit of scrolled page content. The expanded chat
+   panel is allowed to overlay content on top of this reserved strip. */
+.sidebarReserveChat {
+  padding-bottom: calc(var(--space-4) + var(--chat-bar-height));
+}
+
+.contentReserveChat {
+  padding-bottom: calc(var(--space-6) + var(--chat-bar-height));
+}
+
 @media (max-width: 1024px) {
   .menuToggle {
     display: flex;

@@ -154,3 +154,13 @@ export interface Goal {
   name: string;
   activityIds: string[];
 }
+
+// BCH-only group chat scoped to one Activity (event). Session-only, not persisted;
+// messages are dropped along with the activity if it's deleted.
+export interface ChatMessage {
+  id: string;
+  activityId: string;
+  authorId: string;
+  content: string;
+  createdAt: string;
+}

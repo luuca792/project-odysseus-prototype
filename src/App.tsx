@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { AppDataProvider } from './context/AppDataContext';
 import { NotificationProvider } from './context/NotificationContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { ChatWidgetProvider } from './context/ChatWidgetContext';
 import { ToastProvider } from './components/Toast/ToastContext';
 import { AppShell } from './components/AppShell/AppShell';
 import { RoleGuard } from './components/RoleGuard/RoleGuard';
@@ -222,7 +223,9 @@ function App() {
         <AppDataProvider>
           <NotificationProvider>
             <ToastProvider>
-              <AppRoutes />
+              <ChatWidgetProvider>
+                <AppRoutes />
+              </ChatWidgetProvider>
             </ToastProvider>
           </NotificationProvider>
         </AppDataProvider>

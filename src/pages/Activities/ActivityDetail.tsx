@@ -13,6 +13,7 @@ import {
   ChevronUp,
   UserPlus,
   UserMinus,
+  MessageCircle,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAppData } from '../../context/AppDataContext';
@@ -28,6 +29,7 @@ import { Card } from '../../components/Card/Card';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal/Modal';
 import { useToast } from '../../components/Toast/ToastContext';
+import { useChatWidget } from '../../context/ChatWidgetContext';
 import styles from './Activities.module.css';
 
 export function ActivityDetail() {
@@ -37,6 +39,7 @@ export function ActivityDetail() {
   const canManage = usePermission('manage-activities');
   const { markActivityRead } = useNotifications();
   const { showToast } = useToast();
+  const { openChat } = useChatWidget();
   const navigate = useNavigate();
 
   const [participantsOpen, setParticipantsOpen] = useState(false);
@@ -262,6 +265,27 @@ export function ActivityDetail() {
                 ))}
               </ul>
             )}
+          </Card>
+        </section>
+      )}
+
+      {canManage && (
+        <section className={styles.section}>
+          <div className={styles.bchOnlyBanner}>
+            <Lock size={12} /> Chỉ BCH mới xem được mục này
+          </div>
+          <Card>
+            <div className={styles.chatPromptRow}>
+              <div>
+                <p style={{ margin: 0, fontWeight: 600 }}>Thảo luận nội bộ BCH</p>
+                <p className={styles.cardMeta} style={{ marginTop: 4 }}>
+                  Trao đổi nhanh giữa BCH về hoạt động này.
+                </p>
+              </div>
+              <Button variant="secondary" size="sm" onClick={() => openChat(activity.id)}>
+                <MessageCircle size={14} /> Mở đoạn chat
+              </Button>
+            </div>
           </Card>
         </section>
       )}

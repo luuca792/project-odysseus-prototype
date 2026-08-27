@@ -1,0 +1,350 @@
+.widget {
+  position: fixed;
+  right: var(--space-5);
+  bottom: 0;
+  width: 360px;
+  max-width: calc(100vw - var(--space-5) * 2);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+}
+
+.bar {
+  order: 2;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--chat-bar-height);
+  padding: 0 var(--space-4);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  box-shadow: var(--shadow-lg);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.barLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel {
+  order: 1;
+  display: flex;
+  height: 480px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* When expanded, the title bar moves to the top of the window (so clicking it
+   to collapse can't be triggered accidentally while typing near the bottom
+   composer) and the panel sits below it instead of above. */
+.widgetOpen .bar {
+  order: 1;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.widgetOpen .panel {
+  order: 2;
+  border-top: none;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+}
+
+/* Messenger-style two-page mechanic (same on every screen size): the group
+   list and the conversation are two full-width "pages" inside the panel,
+   never shown side by side — data-view on .panel toggles which one shows. */
+.groupList {
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.panel[data-view='list'] .groupList {
+  display: flex;
+}
+.panel[data-view='list'] .conversation {
+  display: none;
+}
+.panel[data-view='conversation'] .groupList {
+  display: none;
+}
+.panel[data-view='conversation'] .conversation {
+  display: flex;
+}
+
+.groupItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 10px 10px;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+.groupItem:hover {
+  background: var(--color-bg);
+}
+
+.groupItemActive {
+  background: var(--color-primary-50);
+  border-left: 3px solid var(--color-primary);
+  padding-left: 7px;
+}
+
+.groupItemTitle {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.groupItemPreview {
+  font-size: 11px;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.groupItemPreviewSender {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.emptyGroups {
+  margin: auto;
+  padding: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+  text-align: center;
+}
+
+.conversationHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.conversationHeaderTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.backBtn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+}
+.backBtn:hover {
+  background: var(--color-bg);
+}
+
+.messageList {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-3);
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.empty {
+  margin: auto;
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-xs);
+  text-align: center;
+}
+
+.messageRow {
+  display: flex;
+  gap: 8px;
+  max-width: 90%;
+}
+
+.messageRowSelf {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.bubbleCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.meta {
+  display: flex;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--color-text-subtle);
+}
+
+.messageRowSelf .meta {
+  flex-direction: row-reverse;
+}
+
+.author {
+  font-weight: 600;
+}
+
+.bubble {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.bubbleSelf {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.imageBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+}
+.imageBtn:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-body);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary-light);
+}
+
+.sendBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--color-primary);
+  color: white;
+}
+.sendBtn:disabled {
+  opacity: 0.5;
+}
+
+@media (max-width: 640px) {
+  /* Below this width the widget goes full-bleed edge-to-edge instead of a
+     floating card docked to the right — the two-page mechanic itself
+     (list vs. conversation) is already the default at every width above. */
+  .widget {
+    right: 0;
+    left: 0;
+    width: auto;
+    max-width: none;
+  }
+
+  .bar {
+    border-radius: 0;
+  }
+
+  .panel {
+    height: 70vh;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .groupItemTitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .groupItemPreview {
+    font-size: var(--font-size-xs);
+  }
+}
