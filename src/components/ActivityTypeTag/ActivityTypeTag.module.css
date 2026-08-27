@@ -9,22 +9,22 @@
 }
 
 .volunteer {
-  background: color-mix(in srgb, var(--color-type-volunteer) 15%, white);
+  background: color-mix(in srgb, var(--color-type-volunteer) var(--color-tag-mix-ratio), var(--color-tag-mix));
   color: var(--color-type-volunteer);
 }
 .meeting {
-  background: color-mix(in srgb, var(--color-type-meeting) 20%, white);
+  background: color-mix(in srgb, var(--color-type-meeting) calc(var(--color-tag-mix-ratio) + 5%), var(--color-tag-mix));
   color: var(--color-type-meeting);
 }
 .organizational {
-  background: color-mix(in srgb, var(--color-type-organizational) 15%, white);
+  background: color-mix(in srgb, var(--color-type-organizational) var(--color-tag-mix-ratio), var(--color-tag-mix));
   color: var(--color-type-organizational);
 }
 .sports {
-  background: color-mix(in srgb, var(--color-type-sports) 15%, white);
+  background: color-mix(in srgb, var(--color-type-sports) var(--color-tag-mix-ratio), var(--color-tag-mix));
   color: var(--color-type-sports);
 }
 .labor {
-  background: color-mix(in srgb, var(--color-type-labor) 15%, white);
+  background: color-mix(in srgb, var(--color-type-labor) var(--color-tag-mix-ratio), var(--color-tag-mix));
   color: var(--color-type-labor);
 }

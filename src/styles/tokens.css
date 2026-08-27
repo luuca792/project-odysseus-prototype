@@ -88,6 +88,12 @@
   /* Overlay (modal backdrop) */
   --color-overlay: rgba(16, 24, 40, 0.45);
 
+  /* Base color-mix() blends toward for tinted tag backgrounds (ActivityTypeTag,
+     ActivityStatusTag) — must be theme-aware, not a literal `white`, or the tint
+     stays paper-bright in dark mode and washes out the (also-bright) text color. */
+  --color-tag-mix: white;
+  --color-tag-mix-ratio: 15%;
+
   color-scheme: light;
 }
 
@@ -141,6 +147,9 @@
   --color-category-border: #3a2c5c;
 
   --color-overlay: rgba(0, 0, 0, 0.6);
+
+  --color-tag-mix: #10151d;
+  --color-tag-mix-ratio: 82%;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
