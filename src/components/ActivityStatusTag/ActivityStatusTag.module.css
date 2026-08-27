@@ -9,14 +9,14 @@
 }
 
 .upcoming {
-  background: color-mix(in srgb, var(--color-status-upcoming) 15%, white);
-  color: var(--color-status-upcoming);
+  background: color-mix(in srgb, var(--color-status-upcoming) var(--color-tag-mix-ratio), var(--color-tag-mix));
+  color: var(--color-tag-text-upcoming);
 }
 .ongoing {
-  background: color-mix(in srgb, var(--color-status-ongoing) 15%, white);
-  color: var(--color-status-ongoing);
+  background: color-mix(in srgb, var(--color-status-ongoing) var(--color-tag-mix-ratio), var(--color-tag-mix));
+  color: var(--color-tag-text-ongoing);
 }
 .ended {
-  background: color-mix(in srgb, var(--color-status-ended) 20%, white);
-  color: var(--color-status-ended);
+  background: color-mix(in srgb, var(--color-status-ended) calc(var(--color-tag-mix-ratio) + 5%), var(--color-tag-mix));
+  color: var(--color-tag-text-ended);
 }

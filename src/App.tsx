@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { AppDataProvider } from './context/AppDataContext';
 import { NotificationProvider } from './context/NotificationContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './components/Toast/ToastContext';
 import { AppShell } from './components/AppShell/AppShell';
 import { RoleGuard } from './components/RoleGuard/RoleGuard';
@@ -216,15 +217,17 @@ function AppRoutes() {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppDataProvider>
-        <NotificationProvider>
-          <ToastProvider>
-            <AppRoutes />
-          </ToastProvider>
-        </NotificationProvider>
-      </AppDataProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppDataProvider>
+          <NotificationProvider>
+            <ToastProvider>
+              <AppRoutes />
+            </ToastProvider>
+          </NotificationProvider>
+        </AppDataProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

@@ -79,4 +79,104 @@
   --shell-sidebar-width: 240px;
   --breakpoint-mobile: 640px;
   --breakpoint-tablet: 1024px;
+
+  /* Category tag (software feedback) */
+  --color-category-text: #5a3f96;
+  --color-category-bg: #f1ecfa;
+  --color-category-border: #ddd0f2;
+
+  /* Overlay (modal backdrop) */
+  --color-overlay: rgba(16, 24, 40, 0.45);
+
+  /* Base color-mix() blends toward for tinted tag backgrounds (ActivityTypeTag,
+     ActivityStatusTag) — must be theme-aware, not a literal `white`, or the tint
+     stays paper-bright in dark mode and washes out the (also-bright) text color. */
+  --color-tag-mix: white;
+  --color-tag-mix-ratio: 15%;
+
+  /* Tag text colors — same hue as the background tint by default (light mode:
+     identical to the --color-type-x / --color-status-x tokens, kept separate so
+     dark mode can override with a lighter/more saturated shade for contrast). */
+  --color-tag-text-volunteer: var(--color-type-volunteer);
+  --color-tag-text-meeting: var(--color-type-meeting);
+  --color-tag-text-organizational: var(--color-type-organizational);
+  --color-tag-text-sports: var(--color-type-sports);
+  --color-tag-text-labor: var(--color-type-labor);
+  --color-tag-text-upcoming: var(--color-status-upcoming);
+  --color-tag-text-ongoing: var(--color-status-ongoing);
+  --color-tag-text-ended: var(--color-status-ended);
+
+  color-scheme: light;
+}
+
+/*
+ * Dark theme — same token names, remapped values. Applied via `data-theme="dark"`
+ * on <html>, set by ThemeContext (src/context/ThemeContext.tsx). Every color in the
+ * app is expected to flow through these tokens; see CLAUDE.md-adjacent note in
+ * ThemeContext for the "don't hardcode colors" rule this depends on.
+ */
+:root[data-theme='dark'] {
+  --color-primary: #4d9fe8;
+  --color-primary-light: #4fd0ff;
+  --color-primary-dark: #7fb8ec;
+
+  --color-primary-50: #16283d;
+  --color-primary-100: #1c3450;
+  --color-primary-600: #6bb0ee;
+
+  --color-bg: #10151d;
+  --color-surface: #1a212c;
+  --color-border: #2c3542;
+  --color-text: #e7ecf3;
+  --color-text-muted: #a7b0bf;
+  --color-text-subtle: #7d8797;
+
+  --color-success: #3ecf7a;
+  --color-success-bg: #123023;
+  --color-warning: #f0a94e;
+  --color-warning-bg: #3a2a10;
+  --color-error: #f0655d;
+  --color-error-bg: #3a1616;
+  --color-info: #4fd0ff;
+  --color-info-bg: #0f2e3a;
+
+  --color-highlight-bg: #332a10;
+  --color-highlight-border: #5c4a17;
+  --color-highlight-text: #e8c96b;
+
+  --color-type-volunteer: #3ecf7a;
+  --color-type-meeting: #8892a0;
+  --color-type-organizational: #4d9fe8;
+  --color-type-sports: #f0a94e;
+  --color-type-labor: #a58ce0;
+
+  --color-status-upcoming: #4fd0ff;
+  --color-status-ongoing: #3ecf7a;
+  --color-status-ended: #8892a0;
+
+  --color-category-text: #c3aef0;
+  --color-category-bg: #251c3a;
+  --color-category-border: #3a2c5c;
+
+  --color-overlay: rgba(0, 0, 0, 0.6);
+
+  --color-tag-mix: #10151d;
+  --color-tag-mix-ratio: 82%;
+
+  /* Lighter/more-saturated than the tag background's own accent color (which the
+     background is mixed from) so text doesn't blend into the tinted dark chip. */
+  --color-tag-text-volunteer: #7be8a8;
+  --color-tag-text-meeting: #c7ced8;
+  --color-tag-text-organizational: #9cc9f3;
+  --color-tag-text-sports: #f7c485;
+  --color-tag-text-labor: #cdbcf0;
+  --color-tag-text-upcoming: #9de4ff;
+  --color-tag-text-ongoing: #7be8a8;
+  --color-tag-text-ended: #c7ced8;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
 }

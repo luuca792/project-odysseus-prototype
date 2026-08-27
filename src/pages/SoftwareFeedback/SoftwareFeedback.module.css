@@ -151,9 +151,9 @@
   display: inline-block;
   font-weight: 600;
   font-size: 11px;
-  color: #5a3f96;
-  background: #f1ecfa;
-  border: 1px solid #ddd0f2;
+  color: var(--color-category-text);
+  background: var(--color-category-bg);
+  border: 1px solid var(--color-category-border);
   border-radius: 999px;
   padding: 1px 8px;
 }

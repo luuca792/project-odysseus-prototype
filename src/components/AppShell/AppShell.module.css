@@ -68,8 +68,14 @@
 }
 
 .headerRight {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   flex-shrink: 0;
+}
+
+.accountBtnWrap {
+  position: relative;
 }
 
 .accountBtn {

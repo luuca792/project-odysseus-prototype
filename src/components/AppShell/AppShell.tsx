@@ -7,6 +7,7 @@ import { useNotifications } from '../../context/NotificationContext';
 import { getUserRoleLabel } from '../../mock-data/roleLabels';
 import { getNavSections, isNavGroup, isNavDivider, type NavItem, type NavGroup } from './navConfig';
 import { NotificationDot } from '../NotificationDot/NotificationDot';
+import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 import logoUrl from '../../assets/images/CTU_logo.png';
 import styles from './AppShell.module.css';
 
@@ -99,26 +100,29 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
 
         <div className={styles.headerRight}>
-          <button className={styles.accountBtn} onClick={() => setAccountMenuOpen((v) => !v)}>
-            <span className={styles.avatar}>{currentUser.avatarInitials}</span>
-            <span className={styles.accountText}>
-              <span className={styles.accountName}>{currentUser.name}</span>
-              <span className={styles.accountRole}>{getUserRoleLabel(currentUser)}</span>
-            </span>
-            <ChevronDown size={16} />
-          </button>
-          {accountMenuOpen && (
-            <div className={styles.accountMenu}>
-              {canViewProfile && (
-                <button className={styles.accountMenuItem} onClick={handleGoToProfile}>
-                  <User size={16} /> Hồ sơ cá nhân
+          <ThemeToggle />
+          <div className={styles.accountBtnWrap}>
+            <button className={styles.accountBtn} onClick={() => setAccountMenuOpen((v) => !v)}>
+              <span className={styles.avatar}>{currentUser.avatarInitials}</span>
+              <span className={styles.accountText}>
+                <span className={styles.accountName}>{currentUser.name}</span>
+                <span className={styles.accountRole}>{getUserRoleLabel(currentUser)}</span>
+              </span>
+              <ChevronDown size={16} />
+            </button>
+            {accountMenuOpen && (
+              <div className={styles.accountMenu}>
+                {canViewProfile && (
+                  <button className={styles.accountMenuItem} onClick={handleGoToProfile}>
+                    <User size={16} /> Hồ sơ cá nhân
+                  </button>
+                )}
+                <button className={styles.accountMenuItem} onClick={handleSwitchAccount}>
+                  <LogOut size={16} /> Đổi tài khoản
                 </button>
-              )}
-              <button className={styles.accountMenuItem} onClick={handleSwitchAccount}>
-                <LogOut size={16} /> Đổi tài khoản
-              </button>
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
